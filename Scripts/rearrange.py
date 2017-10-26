@@ -14,9 +14,9 @@ def rearrange(myList):
     i = 0
     myListLength = len(myList)
     while i < myListLength:
-        #Get a Random Index of the Original List
+        # Get a Random Index of the Original List
         randomListIndex = random.randint(0, len(myList) - 1)
-        #Add that list index element to shuffledList
+        # Add that list index element to shuffledList
         shuffledList.append(myList[randomListIndex])
         # Remove that index element from original list
         del myList[randomListIndex]
