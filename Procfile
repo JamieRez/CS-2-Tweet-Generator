@@ -1,1 +1,1 @@
-worker: flask run
+web: python3 server.py
