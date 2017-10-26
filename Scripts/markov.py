@@ -31,4 +31,11 @@ def chainGram(bookFile):
     return chaingram
 
 
-print(chainGram(corpusTextPath))
+def makeRandomChain(chaingram, wordNum):
+    """Generate a random pattern of words using the chaingram."""
+    sentenceList = []
+    print(list(chaingram))
+
+
+# print(chainGram(corpusTextPath))
+makeRandomChain(chainGram(corpusTextPath), 10)
