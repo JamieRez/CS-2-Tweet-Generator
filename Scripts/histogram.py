@@ -47,6 +47,7 @@ def frequency(word, histogram):
 
 
 def histogramDict(bookFile):
+    """Return a Dictionary Histogram."""
     book = open(bookFile)
     # open bookfile
     book = open(bookFile)
@@ -61,7 +62,7 @@ def histogramDict(bookFile):
     for word in bookWords:
         # Words with letters only
         if not word.isdigit() and word.isalpha():
-            # New words get added to uniqueWords as well as the histogramList.
+            # New words get added to uniqueWords as well as the dictogram.
             if word not in uniqueWords:
                 uniqueWords.append(word)
                 dictogram[word] = 1
@@ -72,7 +73,43 @@ def histogramDict(bookFile):
     return dictogram
 
 
+def tuplegram(bookFile):
+    """Generate an array of each word and its frequency from a textfile."""
+    # open bookfile
+    book = open(bookFile)
+    # Which characters should be filtered out of of the words
+    regex = re.compile('[,\.!?:/$()@]')
+    # Filter out the read words, lowercase them, and put them into an array
+    bookWords = regex.sub('', book.read().lower()).split()
+
+    uniqueWords = []
+    histogramTup = ()
+
+    for word in bookWords:
+        # Words with letters only
+        if not word.isdigit() and word.isalpha():
+            # New words get added to uniqueWords as well as the histogramTup.
+            if word not in uniqueWords:
+                uniqueWords.append(word)
+                histogramTup += ((word, 1),)
+            # Non New words get updated in the histogram frequency
+            else:
+                # Make a List out of the histogramTup
+                histList = list(histogramTup)
+                # Make a list out of the tuple that has the word
+                histListEntry = list(histList[uniqueWords.index(word)])
+                # Update the frequency
+                histListEntry[1] += 1
+                # Update the List to have histListEntry as a tuple
+                histList[uniqueWords.index(word)] = tuple(histListEntry)
+                # Make the whole list a tuple
+                histogramTup = tuple(histList)
+
+    return histogramTup
+
+
 def getRandomWord(bookFile):
+    """Get a Random word from a textfile."""
     # open bookfile
     book = open(bookFile)
     # Which characters should be filtered out of of the words
@@ -87,4 +124,5 @@ def getRandomWord(bookFile):
 #print(unique_words(histogram(bookFilePath)))
 #print(frequency("cigar", histogram(bookFilePath)))
 #print(histogramDict(bookFilePath))
-print(getRandomWord(bookFilePath))
+# print(tuplegram(bookFilePath))
+#print(getRandomWord(bookFilePath))

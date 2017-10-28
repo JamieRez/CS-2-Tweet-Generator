@@ -32,17 +32,27 @@ def chainGram(bookFile):
     return chaingram
 
 
-def getNewWord(chaingram, curWord, numOfWords, i):
+def getNewWord(chaingram, curWord, numOfWords, i, sentenceList=None):
+    possibleWordsList = []
+    for chain in chaingram:
+        if chain[0][0] == curWord:
+            possibleWordsList.append(chain[0][1])
+    newWord = random.choice(possibleWordsList)
+    if sentenceList is None:
+        sentenceList = []
+    sentenceList.append(newWord)
     if i < numOfWords:
+        getNewWord(chaingram, newWord, numOfWords, i+1, sentenceList)
+    return sentenceList
 
 
 
 def makeRandomChain(chaingram, wordNum):
     """Generate a random pattern of words using the chaingram."""
-    sentenceList = []
     curWord = random.choice(chaingram)[0][0]
     i = 1
     sentenceList = getNewWord(chaingram, curWord, wordNum, i)
+    print(" ".join(sentenceList))
 
 
 # print(chainGram(corpusTextPath))
